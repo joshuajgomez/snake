@@ -7,12 +7,12 @@ public class DisplayManager {
 	private static final int ROW_MAX = 10;
 
 	private static final int COL_MAX = 10;
-	
+
 	private static final String ROW_SPACE = " ";
-	
-	private static final String SNAKE_BODY = "O";
-	
-	private static final String SNAKE_HEAD = "@";
+
+	private static final String SNAKE_BODY = "##";
+
+	private static final String SNAKE_HEAD = "@@";
 
 	public void drawGrid(int[][] snake) {
 		for (int row = 0; row < ROW_MAX; row++) {
@@ -27,9 +27,9 @@ public class DisplayManager {
 	private String getDrawitem(int row, int col, int[][] snake) {
 		String drawItem = "";
 		for (int i = 0; i < snake.length; i++) {
-			if(row == snake[i][0] && col == snake[i][1]) {
+			if (row == snake[i][0] && col == snake[i][1]) {
 				// Snake present at this cell
-				if(i == 0) {
+				if (i == 0) {
 					// Snake body's start = Head.
 					drawItem = SNAKE_HEAD;
 				} else {

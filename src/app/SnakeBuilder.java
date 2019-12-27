@@ -7,27 +7,20 @@ import app.utils.Const;
 public class SnakeBuilder {
 
 	public SnakeBuilder() {
-
 	}
 
 	public int[][] getDefaultSnake() {
 		int[][] snake = new int[5][2];
-
 		snake[0][0] = 3;
 		snake[0][1] = 4;
-
 		snake[1][0] = 3;
 		snake[1][1] = 5;
-
 		snake[2][0] = 3;
 		snake[2][1] = 6;
-
 		snake[3][0] = 3;
 		snake[3][1] = 7;
-
 		snake[4][0] = -1;
 		snake[4][1] = -1;
-
 		System.out.println("snake=" + Arrays.deepToString(snake));
 		return snake;
 	}
@@ -36,44 +29,41 @@ public class SnakeBuilder {
 		int[][] newSnake = new int[snake.length][2];
 		int direction = getDirection(snake, inputDirection);
 		for (int i = 0; i < snake.length; i++) {
-			int finalRow = -1;
-			int finalCol = -1;
+			int newRow = -1;
+			int newCol = -1;
 			if (i == 0) {
 				// Snake head
 				int snakeRow = snake[i][0];
 				int snakeCol = snake[i][1];
 				if (direction == Const.Direction.LEFT) {
-					finalRow = snakeRow;
-					finalCol = --snakeCol;
+					newRow = snakeRow;
+					newCol = --snakeCol;
 				} else if (direction == Const.Direction.RIGHT) {
-					finalRow = snakeRow;
-					finalCol = ++snakeCol;
+					newRow = snakeRow;
+					newCol = ++snakeCol;
 				} else if (direction == Const.Direction.UP) {
-					finalRow = --snakeRow;
-					finalCol = snakeCol;
+					newRow = --snakeRow;
+					newCol = snakeCol;
 				} else if (direction == Const.Direction.DOWN) {
-					finalRow = ++snakeRow;
-					finalCol = snakeCol;
+					newRow = ++snakeRow;
+					newCol = snakeCol;
 				}
 			} else {
 				// Snake body
-				// System.out.println("snake" + i + "-1.0:" + snake[i-1][0] + ", snake" + i +
-				// "-1.1:" + snake[i-1][1]);
 				if (snake[i][0] == -1) {
-					// Snake ended
-					System.out.println("Snake ended");
-					finalRow = -1;
-					finalCol = -1;
+					// New snake complete
+					newRow = -1;
+					newCol = -1;
 				} else {
-					finalRow = snake[i - 1][0];
-					finalCol = snake[i - 1][1];
+					// New snake not complete. Copy previous cell of snake.
+					newRow = snake[i - 1][0];
+					newCol = snake[i - 1][1];
 				}
 			}
-			System.out.println("snake" + i + "0=" + snake[i][0] + ";finalRow=" + finalRow
-					+ ",    snake" + i + "1=" + snake[i][1] + ";finalCol=" + finalCol);
-			newSnake[i][0] = finalRow;
-			newSnake[i][1] = finalCol;
-			
+			System.out.println("snake" + i + "0=" + snake[i][0] + ";newRow=" + newRow
+					+ ",    snake" + i + "1=" + snake[i][1] + ";newCol=" + newCol);
+			newSnake[i][0] = newRow;
+			newSnake[i][1] = newCol;
 		}
 		System.out.println("newSnake=" + Arrays.deepToString(newSnake));
 		return newSnake;
