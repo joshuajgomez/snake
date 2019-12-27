@@ -1,12 +1,9 @@
 package app;
 
+import app.utils.Const;
 import app.utils.Logger;
 
 public class DisplayManager {
-
-	private static final int ROW_MAX = 10;
-
-	private static final int COL_MAX = 10;
 
 	private static final String ROW_SPACE = " ";
 
@@ -15,8 +12,8 @@ public class DisplayManager {
 	private static final String SNAKE_HEAD = "@@";
 
 	public void drawGrid(int[][] snake) {
-		for (int row = 0; row < ROW_MAX; row++) {
-			for (int col = 0; col < COL_MAX; col++) {
+		for (int row = 0; row < Const.ROW_MAX; row++) {
+			for (int col = 0; col < Const.COL_MAX; col++) {
 				String drawItem = getDrawitem(row, col, snake);
 				System.out.print(drawItem + ROW_SPACE);
 			}

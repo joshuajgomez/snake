@@ -60,13 +60,29 @@ public class SnakeBuilder {
 					newCol = snake[i - 1][1];
 				}
 			}
-			System.out.println("snake" + i + "0=" + snake[i][0] + ";newRow=" + newRow
-					+ ",    snake" + i + "1=" + snake[i][1] + ";newCol=" + newCol);
-			newSnake[i][0] = newRow;
-			newSnake[i][1] = newCol;
+			System.out.println("snake" + i + "0=" + snake[i][0] + ";newRow=" + newRow + ",    snake" + i + "1="
+					+ snake[i][1] + ";newCol=" + newCol);
+			if (didSnakeHitBox(newRow, newCol)) {
+				// Snake hit box side. Game over.
+				newSnake = null;
+				break;
+			} else {
+				// Snake inside box
+				newSnake[i][0] = newRow;
+				newSnake[i][1] = newCol;
+			}
 		}
 		System.out.println("newSnake=" + Arrays.deepToString(newSnake));
 		return newSnake;
+	}
+
+	private boolean didSnakeHitBox(int newRow, int newCol) {
+		boolean didSnakeHitBox = false;
+		if (newRow >= Const.ROW_MAX || newCol >= Const.COL_MAX
+				|| ((newRow == -1 && newCol != -1) || (newRow != -1 && newCol == -1))) {
+			didSnakeHitBox = true;
+		}
+		return didSnakeHitBox;
 	}
 
 	private int getInputDirectionUpdated(int currentDirection, int inputDirection) {
