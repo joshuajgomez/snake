@@ -26,7 +26,12 @@ public class SnakeBuilder {
 	}
 
 	public int[][] buildSnake(int[][] snake, @Const.Direction int inputDirection) {
-		int[][] newSnake = new int[snake.length][2];
+		int[][] newSnake;
+		if (SnakeManager.didSnakeEatFood) {
+			newSnake = new int[snake.length + 1][2];
+		} else {
+			newSnake = new int[snake.length][2];
+		}
 		int direction = getDirection(snake, inputDirection);
 		for (int i = 0; i < snake.length; i++) {
 			int newRow = -1;
@@ -52,8 +57,19 @@ public class SnakeBuilder {
 				// Snake body
 				if (snake[i][0] == -1) {
 					// New snake complete
-					newRow = -1;
-					newCol = -1;
+					if (SnakeManager.didSnakeEatFood) {
+						// Snake ate food. Size +1
+						SnakeManager.didSnakeEatFood = false;
+						newSnake[i][0] = snake[i - 1][0];
+						newSnake[i][1] = snake[i - 1][1];
+						newSnake[i + 1][0] = -1;
+						newSnake[i + 1][1] = -1;
+						break;
+					} else {
+						// Snake did not eat food.
+						newRow = -1;
+						newCol = -1;
+					}
 				} else {
 					// New snake not complete. Copy previous cell of snake.
 					newRow = snake[i - 1][0];
