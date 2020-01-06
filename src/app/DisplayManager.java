@@ -11,20 +11,31 @@ public class DisplayManager {
 
 	private static final String SNAKE_HEAD = "@@";
 
-	public void drawGrid(int[][] snake) {
+	private static final String FOOD = "$$";
+
+	private int[][] mSnake;
+
+	private int mFoodRow;
+
+	private int mFoodCol;
+
+	public void drawGrid(int[][] snake, int foodRow, int foodCol) {
+		this.mSnake = snake;
+		this.mFoodRow = foodRow;
+		this.mFoodCol = foodCol;
 		for (int row = 0; row < Const.ROW_MAX; row++) {
 			for (int col = 0; col < Const.COL_MAX; col++) {
-				String drawItem = getDrawitem(row, col, snake);
+				String drawItem = getDrawitem(row, col);
 				System.out.print(drawItem + ROW_SPACE);
 			}
 			System.out.println();
 		}
 	}
 
-	private String getDrawitem(int row, int col, int[][] snake) {
+	private String getDrawitem(int row, int col) {
 		String drawItem = "";
-		for (int i = 0; i < snake.length; i++) {
-			if (row == snake[i][0] && col == snake[i][1]) {
+		for (int i = 0; i < mSnake.length; i++) {
+			if (row == mSnake[i][0] && col == mSnake[i][1]) {
 				// Snake present at this cell
 				if (i == 0) {
 					// Snake body's start = Head.
@@ -34,6 +45,9 @@ public class DisplayManager {
 					drawItem = SNAKE_BODY;
 				}
 				break;
+			} else if (row == mFoodRow && col == mFoodCol) {
+				// Snake food
+				drawItem = FOOD;
 			} else {
 				// Snake empty here
 				drawItem = row + "" + col;
